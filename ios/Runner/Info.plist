@@ -43,6 +43,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>写真フォルダへのアクセスが必要です</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires to add file to your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires to add file to your photo library your microphone</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

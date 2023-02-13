@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "761104752238",
+    "project_id": "chat-5d11e",
+    "storage_bucket": "chat-5d11e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761104752238:android:84c9a4ba54e740467c907f",
+        "android_client_info": {
+          "package_name": "com.example.flutterlabo_twitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761104752238-dtarjhjvms8lfb11unadj2lmm4bhst05.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRB2EGPLVC0QvLUB0eFisN8wnvN_WrfcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761104752238-dtarjhjvms8lfb11unadj2lmm4bhst05.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
