@@ -7,7 +7,6 @@ import 'package:flutterlabo_twitter/utils/firestore/users.dart';
 import 'package:flutterlabo_twitter/utils/function_utils.dart';
 import 'package:flutterlabo_twitter/utils/wiget_utils.dart';
 import 'package:flutterlabo_twitter/view/start_up/login_page.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditAccountPage extends StatefulWidget {
   @override
