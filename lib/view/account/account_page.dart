@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterlabo_twitter/model/account.dart';
 import 'package:flutterlabo_twitter/model/post.dart';
 import 'package:flutterlabo_twitter/utils/authentication.dart';
+import 'package:flutterlabo_twitter/utils/firestore/posts.dart';
 import 'package:flutterlabo_twitter/utils/firestore/users.dart';
 import 'package:flutterlabo_twitter/view/account/edit_account_page.dart';
 import 'package:intl/intl.dart';
@@ -82,50 +83,67 @@ class _AccountPageState extends State<AccountPage> {
                       .collection('my_posts').orderBy('created_time', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
-                    return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: postList.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              border: index == 0 ? Border(
-                                top: BorderSide(color: Colors.grey, width: 0),
-                                bottom: BorderSide(color: Colors.grey, width: 0),
-                              ) :Border(bottom: BorderSide(color: Colors.grey, width: 0),)
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 22,
-                                  foregroundImage: NetworkImage(myAccount.imagePath),
-                                ),
-                                Expanded(
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(myAccount.name, style: TextStyle(fontWeight: FontWeight.bold),),
-                                                  Text('@${myAccount.userId}', style: TextStyle(color: Colors.grey),),
-                                                ],
-                                              ),
-                                              Text(DateFormat('M/d/yy').format(postList[index].createdTime!.toDate()))
-                                            ],
-                                          ),
-                                          Text(postList[index].content)
-                                        ],
-                                      ),
+                    if(snapshot.hasData) {
+                      List<String> myPostIds = List.generate(snapshot.data!.docs.length, (index) {
+                        return snapshot.data!.docs[index].id;
+                      });
+                      return FutureBuilder<List<Post>?>(
+                        future: PostFirestore.getPostsFromIds(myPostIds),
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData) {
+                            return ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) {
+                                  Post post = snapshot.data![index];
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                        border: index == 0 ? Border(
+                                          top: BorderSide(color: Colors.grey, width: 0),
+                                          bottom: BorderSide(color: Colors.grey, width: 0),
+                                        ) :Border(bottom: BorderSide(color: Colors.grey, width: 0),)
                                     ),
-                                )
-                              ],
-                            ),
-                          );
-                        });
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 22,
+                                          foregroundImage: NetworkImage(myAccount.imagePath),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(myAccount.name, style: TextStyle(fontWeight: FontWeight.bold),),
+                                                        Text('@${myAccount.userId}', style: TextStyle(color: Colors.grey),),
+                                                      ],
+                                                    ),
+                                                    Text(DateFormat('M/d/yy').format(post.createdTime!.toDate()))
+                                                  ],
+                                                ),
+                                                Text(post.content)
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                });
+                          } else {
+                            return Container();
+                          }
+                        }
+                      );
+                    } else {
+                      return Container();
+                    }
                   }
                 )
                 )

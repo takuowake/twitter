@@ -26,7 +26,7 @@ class PostFirestore {
     }
   }
 
-  static Future<dynamic> getPostsFromIds(List<String> ids) async{
+  static Future<List<Post>?> getPostsFromIds(List<String> ids) async{
     List<Post> postList = [];
     try {
       await Future.forEach(ids, (String id) async{
@@ -44,7 +44,7 @@ class PostFirestore {
       return postList;
     } on FirebaseException catch(e) {
       print('自分の投稿取得エラー：$e');
-      return false;
+      return null;
     }
   }
 }
