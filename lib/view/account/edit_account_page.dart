@@ -6,6 +6,7 @@ import 'package:flutterlabo_twitter/utils/authentication.dart';
 import 'package:flutterlabo_twitter/utils/firestore/users.dart';
 import 'package:flutterlabo_twitter/utils/function_utils.dart';
 import 'package:flutterlabo_twitter/utils/wiget_utils.dart';
+import 'package:flutterlabo_twitter/view/start_up/login_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditAccountPage extends StatefulWidget {
@@ -113,6 +114,19 @@ class _EditAccountPageState extends State<EditAccountPage> {
                     }
                   },
                   child: Text('更新')
+              ),
+              SizedBox(height: 50),
+              ElevatedButton(
+                  onPressed: () {
+                    Authentication.signOut();
+                    while(Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => LoginPage()
+                    ));
+                  },
+                  child: Text('ログアウト')
               )
             ],
           ),
