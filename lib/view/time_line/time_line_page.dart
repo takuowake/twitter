@@ -26,13 +26,13 @@ class _TimeLinePageState extends State<TimeLinePage> {
     id: '1',
     content: '初めまして',
     postAccountId: '1',
-    createdTime: DateTime.now()
+    createdTime: Timestamp.now()
     ),
     Post(
         id: '2',
         content: '初めまして2かい',
         postAccountId: '1',
-        createdTime: DateTime.now()
+        createdTime: Timestamp.now()
     ),
   ];
   @override
@@ -75,7 +75,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                 Text('@${myAccount.userId}', style: TextStyle(color: Colors.grey),),
                               ],
                             ),
-                            Text(DateFormat('M/d/yy').format(postList[index].createdTime!))
+                            Text(DateFormat('M/d/yy').format(postList[index].createdTime!.toDate()))
                           ],
                         ),
                         Text(postList[index].content)

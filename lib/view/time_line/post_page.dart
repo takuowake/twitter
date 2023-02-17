@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterlabo_twitter/model/post.dart';
+import 'package:flutterlabo_twitter/utils/authentication.dart';
+import 'package:flutterlabo_twitter/utils/firestore/posts.dart';
 
 class PostPage extends StatefulWidget {
   @override
@@ -26,8 +29,17 @@ class _PostPageState extends State<PostPage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-                onPressed: () {
-
+                onPressed: () async{
+                  if(contentController.text.isNotEmpty) {
+                    Post newPost = Post(
+                      content: contentController.text,
+                      postAccountId: Authentication.myAccount!.id,
+                    );
+                    var result = await PostFirestore.addPost(newPost);
+                    if(result == true) {
+                      Navigator.pop(context);
+                    }
+                  }
                 },
               child: Text('投稿'),
             )
