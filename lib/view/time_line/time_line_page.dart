@@ -4,7 +4,6 @@ import 'package:flutterlabo_twitter/model/account.dart';
 import 'package:flutterlabo_twitter/model/post.dart';
 import 'package:flutterlabo_twitter/utils/firestore/posts.dart';
 import 'package:flutterlabo_twitter/utils/firestore/users.dart';
-import 'package:flutterlabo_twitter/view/time_line/post_page.dart';
 import 'package:intl/intl.dart';
 
 class TimeLinePage extends StatefulWidget {
