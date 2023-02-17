@@ -71,6 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                       if(_result == true) {
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Screen()));
                       }
+                    } else {
+                      print('メール認証できていません');
                     }
                   },
                   child: Text('emailでログイン')

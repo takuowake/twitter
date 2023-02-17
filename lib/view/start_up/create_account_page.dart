@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterlabo_twitter/model/account.dart';
 import 'package:flutterlabo_twitter/utils/authentication.dart';
 import 'package:flutterlabo_twitter/utils/firestore/users.dart';
 import 'package:flutterlabo_twitter/utils/function_utils.dart';
 import 'package:flutterlabo_twitter/utils/wiget_utils.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutterlabo_twitter/view/start_up/check_email_page.dart';
 
 class CreateAccountPage extends StatefulWidget {
   @override
@@ -110,7 +109,13 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         );
                         var _result = await UserFirestore.setUser(newAccount);
                         if (_result == true) {
-                          Navigator.pop(context);
+                          result.user!.sendEmailVerification();
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => CheckEmailPage(
+                              email: emailController.text,
+                              pass: passController.text
+                            )
+                          ));
                         }
                       }
                     }
