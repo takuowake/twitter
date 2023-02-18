@@ -7,9 +7,12 @@ import 'package:flutterlabo_twitter/utils/authentication.dart';
 import 'package:flutterlabo_twitter/utils/firestore/users.dart';
 import 'package:flutterlabo_twitter/utils/function_utils.dart';
 import 'package:flutterlabo_twitter/utils/wiget_utils.dart';
+import 'package:flutterlabo_twitter/view/screen.dart';
 import 'package:flutterlabo_twitter/view/start_up/check_email_page.dart';
 
 class CreateAccountPage extends StatefulWidget {
+  final bool isSignInWithGoogle;
+  CreateAccountPage({this.isSignInWithGoogle = false});
   @override
   _CreateAccountPageState createState() => _CreateAccountPageState();
 }
@@ -71,22 +74,26 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   decoration: InputDecoration(hintText: '自己紹介'),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Container(
-                  width: 300,
-                  child: TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(hintText: 'メールアドレス'),
+              widget.isSignInWithGoogle ? Container() : Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Container(
+                      width: 300,
+                      child: TextField(
+                        controller: emailController,
+                        decoration: InputDecoration(hintText: 'メールアドレス'),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                width: 300,
-                child: TextField(
-                  controller: passController,
-                  decoration: InputDecoration(hintText: 'パスワード'),
-                ),
+                  Container(
+                    width: 300,
+                    child: TextField(
+                      controller: passController,
+                      decoration: InputDecoration(hintText: 'パスワード'),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 50),
               ElevatedButton(
@@ -94,26 +101,25 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     if(nameController.text.isNotEmpty
                         && userIdController.text.isNotEmpty
                         && selfIntroductionController.text.isNotEmpty
-                        && emailController.text.isNotEmpty
-                        && passController.text.isNotEmpty
                         && image!= null) {
+                      if(widget.isSignInWithGoogle) {
+                        var _result = await createAccount(Authentication.currentFirebaseUser!.uid);
+                        if(_result == true) {
+                          await UserFirestore.getUser(Authentication.currentFirebaseUser!.uid);
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Screen()));
+                        }
+                      }
                       var result = await Authentication.signUp(email: emailController.text, pass: passController.text);
                       if(result is UserCredential) {
-                        String imagePath = await FunctionUtils.uploadImage(result.user!.uid, image!);
-                        Account newAccount = Account(
-                          id: result.user!.uid,
-                          name: nameController.text,
-                          userId: userIdController.text,
-                          selfIntroduction: selfIntroductionController.text,
-                          imagePath: imagePath,
-                        );
-                        var _result = await UserFirestore.setUser(newAccount);
-                        if (_result == true) {
+                        var _result = await createAccount(result.user!.uid);
+                        if(_result == true) {
                           result.user!.sendEmailVerification();
+                          // ignore: use_build_context_synchronously
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) => CheckEmailPage(
-                              email: emailController.text,
-                              pass: passController.text
+                                  email: emailController.text,
+                                  pass: passController.text
                             )
                           ));
                         }
@@ -125,7 +131,20 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
             ],
           ),
         ),
-      )
+      ),
     );
+  }
+
+  Future<dynamic> createAccount(String uid) async {
+    String imagePath = await FunctionUtils.uploadImage(uid, image!);
+    Account newAccount = Account(
+      id: uid,
+      name: nameController.text,
+      userId: userIdController.text,
+      selfIntroduction: selfIntroductionController.text,
+      imagePath: imagePath,
+    );
+    var _result = await UserFirestore.setUser(newAccount);
+    return _result;
   }
 }
