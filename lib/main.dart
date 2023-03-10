@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterlabo_twitter/view/screen.dart';
 import 'package:flutterlabo_twitter/view/start_up/login_page.dart';
 
 void main() async{

@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               SizedBox(height: 50,),
-              Text('flutterラボ SNS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+              Text('Twitter SNS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Container(
