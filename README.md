@@ -10,28 +10,21 @@ https://user-images.githubusercontent.com/74645968/224250934-a5bc8884-4c82-49c4-
 <div>
   <h2>画面紹介</h2>
   <div style="display: flex; justify-content: center;">
-    <img src="/assets/images/register.jpg" width="350" style="margin-right: 10px;">
-    <h4><aaa/h4>
-    <img src="/img/3.jpg" width="350" style="margin-left: 10px;">
-  </div>
-  <div style="display: flex; justify-content: center;">
-    <img src="/img/4.jpg" width="350" style="margin-right: 10px;">
-    <img src="/img/5.jpg" width="350" style="margin-left: 10px;">
-  </div>
-  <div style="display: flex; justify-content: center;">
-    <img src="/img/6.jpg" width="350" style="margin-right: 10px;">
-    <img src="/img/7.jpg" width="350" style="margin-left: 10px;">
-  </div>
-  <div style="display: flex; justify-content: center;">
-    <img src="/img/8.jpg" width="350" style="margin-right: 10px;">
-    <img src="/img/9.jpg" width="350" style="margin-left: 10px;">
+    <img src="/assets/images/login.png" width="200" height="400" style="margin-left: 10px;">
+    <img src="/assets/images/register.png" width="200" height="400" style="margin-right: 10px;">
+    <img src="/assets/images/google_login.png" width="200" height="400" style="margin-right: 10px;">
+    <img src="/assets/images/timeline.png" width="200" height="400" style="margin-right: 10px;">
+    <img src="/assets/images/new_tweet.png" width="200" height="400" style="margin-right: 10px;">
+    <img src="/assets/images/myprofile.png" width="200" height="400" style="margin-right: 10px;">
+    <img src="/assets/images/profile_edit.png" width="200" height="400" style="margin-right: 10px;">
   </div>
 </div>
 
-## [アプリ紹介スライド](https://www.canva.com/design/DAFcSRt9qow/GJ18NE5vTuwwLLGtAPnqWw/view?utm_content=DAFcSRt9qow&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
-
 # Requirement
 
+* Mac OS
+* Android Studio Electric Eel | 2022.1.1 Patch 1
+* Firebase 11.23.1
 * Flutter 3.7.6
 * Dart 2.19.3
 * DevTools 2.20.1
